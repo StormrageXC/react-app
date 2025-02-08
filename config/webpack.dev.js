@@ -7,7 +7,7 @@ module.exports = merge(base, {
     client: {
       progress: true,
     },
-    compress: false, //gzip压缩
+    compress: true, //gzip压缩
     hot: true,
     open: {
       //指定打开浏览器

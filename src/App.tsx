@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./login";
-const App = (props) => {
-  const val = useState(`app`);
+const App = () => {
   return (
     <>
       <Login />
