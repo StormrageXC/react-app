@@ -1,6 +1,10 @@
 {
   "extends": "react-app",
   "rules": {
+<<<<<<< HEAD
     "no-console": 1
+=======
+    "no-debugger": "warn"
+>>>>>>> f3fe52884e3c4d1abfb50f43cefe755b0c0c3581
   }
 }
