@@ -2,7 +2,7 @@ const { default: merge } = require("webpack-merge"),
   base = require("./webpack.base.js");
 module.exports = merge(base, {
   mode: "development",
-  devtool: "eval-cheap-source-map",
+  devtool: "source-map",
   devServer: {
     client: {
       progress: true, //在浏览器中以百分比显示编译进度
