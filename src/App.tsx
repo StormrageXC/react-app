@@ -40,47 +40,74 @@ const layoutStyle = {
   maxWidth: "calc(50% - 8px)",
 };
 
-const App: React.FC = () => (
-  <Flex gap="middle" wrap>
-    <Layout style={layoutStyle}>
-      <Header style={headerStyle}>Header</Header>
-      <Content style={contentStyle}>Content</Content>
-      <Footer style={footerStyle}>Footer</Footer>
-    </Layout>
+// const App: React.FC = () => (
+//   <Flex gap="middle" wrap>
+//     <Layout style={layoutStyle}>
+//       <Header style={headerStyle}>Header</Header>
+//       <Content style={contentStyle}>Content</Content>
+//       <Footer style={footerStyle}>Footer</Footer>
+//     </Layout>
 
-    <Layout style={layoutStyle}>
-      <Header style={headerStyle}>Header</Header>
-      <Layout>
-        <Sider width="25%" style={siderStyle}>
-          Sider
-        </Sider>
-        <Content style={contentStyle}>Content</Content>
-      </Layout>
-      <Footer style={footerStyle}>Footer</Footer>
-    </Layout>
+//     <Layout style={layoutStyle}>
+//       <Header style={headerStyle}>Header</Header>
+//       <Layout>
+//         <Sider width="25%" style={siderStyle}>
+//           Sider
+//         </Sider>
+//         <Content style={contentStyle}>Content</Content>
+//       </Layout>
+//       <Footer style={footerStyle}>Footer</Footer>
+//     </Layout>
 
-    <Layout style={layoutStyle}>
-      <Header style={headerStyle}>Header</Header>
-      <Layout>
-        <Content style={contentStyle}>Content</Content>
-        <Sider width="25%" style={siderStyle}>
-          Sider
-        </Sider>
-      </Layout>
-      <Footer style={footerStyle}>Footer</Footer>
-    </Layout>
+//     <Layout style={layoutStyle}>
+//       <Header style={headerStyle}>Header</Header>
+//       <Layout>
+//         <Content style={contentStyle}>Content</Content>
+//         <Sider width="25%" style={siderStyle}>
+//           Sider
+//         </Sider>
+//       </Layout>
+//       <Footer style={footerStyle}>Footer</Footer>
+//     </Layout>
 
-    <Layout style={layoutStyle}>
-      <Sider width="25%" style={siderStyle}>
-        Sider
-      </Sider>
-      <Layout>
-        <Header style={headerStyle}>Header</Header>
-        <Content style={contentStyle}>Content</Content>
-        <Footer style={footerStyle}>Footer</Footer>
-      </Layout>
-    </Layout>
-  </Flex>
-);
+//     <Layout style={layoutStyle}>
+//       <Sider width="25%" style={siderStyle}>
+//         Sider
+//       </Sider>
+//       <Layout>
+//         <Header style={headerStyle}>Header</Header>
+//         <Content style={contentStyle}>Content</Content>
+//         <Footer style={footerStyle}>Footer</Footer>
+//       </Layout>
+//     </Layout>
+//   </Flex>
+// );
 
-export default App;
+// export default App;
+import { useState } from "react";
+
+export default function App() {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+
+  async function handleClick() {
+    setPending(pending + 1);
+    await delay(3000);
+    setPending(pending - 1);
+    setCompleted(completed + 1);
+  }
+
+  return (
+    <>
+      <h3>等待：{pending}</h3>
+      <h3>完成：{completed}</h3>
+      <button onClick={handleClick}>购买</button>
+    </>
+  );
+}
+
+function delay(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
