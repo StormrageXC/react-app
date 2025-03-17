@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useSyncExternalStore } from "react";
 import { Flex, Layout } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -84,30 +84,47 @@ const layoutStyle = {
 // );
 
 // export default App;
-import { useState } from "react";
 
-export default function App() {
-  const [pending, setPending] = useState(0);
-  const [completed, setCompleted] = useState(0);
+let nextId = 0;
+let todos = [{ id: nextId++, text: "Todo #1" }];
+let listeners: Array<any> = [];
 
-  async function handleClick() {
-    setPending(pending + 1);
-    await delay(3000);
-    setPending(pending - 1);
-    setCompleted(completed + 1);
+export const todosStore = {
+  addTodo() {
+    todos = [...todos, { id: nextId++, text: "Todo #" + nextId }];
+    emitChange();
+  },
+  subscribe(listener: any) {
+    listeners = [...listeners, listener];
+    return () => {
+      listeners = listeners.filter((l) => l !== listener);
+    };
+  },
+  getSnapshot() {
+    return todos;
+  },
+};
+
+function emitChange() {
+  for (let listener of listeners) {
+    listener();
   }
-
-  return (
-    <>
-      <h3>等待：{pending}</h3>
-      <h3>完成：{completed}</h3>
-      <button onClick={handleClick}>购买</button>
-    </>
-  );
 }
 
-function delay(ms: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+export default function TodosApp() {
+  const todos = useSyncExternalStore(
+    todosStore.subscribe,
+    todosStore.getSnapshot
+  );
+  return (
+    <>
+      <button onClick={() => todosStore.addTodo()}>Add todo</button>
+      <hr />
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
+    </>
+  );
 }
