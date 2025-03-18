@@ -3,3 +3,6 @@
    font-variant-numeric: normal; 无变化  
    font-variant-numeric: tabular-nums; 表格数字显示，使数字等宽，易于像表格那样对齐  
    font-variant-numeric: proportional-nums 启用比例数字显示。使数字变成基于字形本身形状下的特定宽度表现
+2. react-devtools启动react开发者工具
+3. 微数据
+4. precedence优先级控制

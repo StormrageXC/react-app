@@ -14,7 +14,8 @@
   "dependencies": {
     "antd": "^5.24.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "use-immer": "^0.11.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.7",
