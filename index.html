@@ -8,27 +8,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      var maximumOr = function (nums, k) {
-        const n = nums.length;
-        let i = n - 1,
-          max = 0;
-        const sur = new Array(n + 1).fill(0n);
-        while (i >= 0) {
-          sur[i] = sur[i + 1] | BigInt(nums[i]);
-        }
-        let pre = 0n;
-        i = 0;
-        while (i < n) {
-          max = Math.max(
-            max,
-            Number(pre | (BigInt(nums[i]) << BigInt(k)) | sur[i + 1])
-          );
-          pre *= BigInt(nums[i]);
-        }
-        return max;
-      };
-      maximumOr([12, 9], 1);
-    </script>
+    <script></script>
   </body>
 </html>

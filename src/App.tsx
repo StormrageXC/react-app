@@ -5,8 +5,10 @@ import React, {
   useId,
   Profiler,
 } from "react";
-import Login from "./login";
+import login from "./login";
 import { useActionState } from "react";
+const imageUrl = new URL(`../public/Frame_495@3x.png`, import.meta.url);
+console.log(import.meta.url);
 function useOnlineStatus() {
   const [isOnline, setIsOnline] = useState(true);
   useDebugValue(isOnline ? "Online" : "Offline");
@@ -29,7 +31,6 @@ export default function RequestTracker(): React.ReactElement {
   return (
     <>
       <Profiler id="Sidebar" onRender={onRender}>
-        {passwordHintId}
         <AddToCartForm itemID="1" itemTitle="JavaScript：权威指南" />
         <AddToCartForm itemID="2" itemTitle="JavaScript：优点荟萃" />
       </Profiler>
@@ -101,6 +102,7 @@ function AddToCartForm({ itemID, itemTitle }: Props) {
       {formState?.success && (
         <div className="toast">
           成功加入购物车！当前购物车中共有 {formState.cartSize} 件商品。
+          <img src={imageUrl.href} />
         </div>
       )}
       {formState?.success === false && (
