@@ -1,130 +1,111 @@
-import React, { useSyncExternalStore } from "react";
-import { Flex, Layout } from "antd";
+import React, {
+  useEffect,
+  useState,
+  useDebugValue,
+  useId,
+  Profiler,
+} from "react";
+import Login from "./login";
+import { useActionState } from "react";
+function useOnlineStatus() {
+  const [isOnline, setIsOnline] = useState(true);
+  useDebugValue(isOnline ? "Online" : "Offline");
+  return isOnline;
+}
+function onRender(id: string, phase: string, actualDuration: number) {
+  console.log(id, phase, actualDuration);
+}
+export default function RequestTracker(): React.ReactElement {
+  const [pending, setPending] = useState(0);
+  const [completed, setCompleted] = useState(0);
+  const passwordHintId = useId();
+  async function handleClick() {
+    setPending(pending + 1);
+    await delay(3000);
+    setPending((pending) => pending - 1);
+    setCompleted(completed + 1);
+  }
 
-const { Header, Footer, Sider, Content } = Layout;
+  return (
+    <>
+      <Profiler id="Sidebar" onRender={onRender}>
+        {passwordHintId}
+        <AddToCartForm itemID="1" itemTitle="JavaScript：权威指南" />
+        <AddToCartForm itemID="2" itemTitle="JavaScript：优点荟萃" />
+      </Profiler>
+    </>
+  );
+}
 
-const headerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  height: 64,
-  paddingInline: 48,
-  lineHeight: "64px",
-  backgroundColor: "#4096ff",
-};
+function delay(ms: number) {
+  return new Promise((resolve) => {
+    console.log("延迟中...");
+    setTimeout(resolve, ms);
+  });
+}
 
-const contentStyle: React.CSSProperties = {
-  textAlign: "center",
-  minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#0958d9",
-};
+async function increment(previousState: any, formData: any) {
+  return previousState + 1;
+}
 
-const siderStyle: React.CSSProperties = {
-  textAlign: "center",
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#1677ff",
-};
+function StatefulForm({}) {
+  const [state, formAction] = useActionState(increment, 0);
 
-const footerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#4096ff",
-};
+  return (
+    <form>
+      {state}
+      <button formAction={formAction}>+1</button>
+    </form>
+  );
+}
+interface Props {
+  itemID: string;
+  itemTitle: string;
+}
+interface State {
+  success?: boolean;
+  cartSize?: number;
+  message?: string;
+}
 
-const layoutStyle = {
-  borderRadius: 8,
-  overflow: "hidden",
-  width: "calc(50% - 8px)",
-  maxWidth: "calc(50% - 8px)",
-};
-
-// const App: React.FC = () => (
-//   <Flex gap="middle" wrap>
-//     <Layout style={layoutStyle}>
-//       <Header style={headerStyle}>Header</Header>
-//       <Content style={contentStyle}>Content</Content>
-//       <Footer style={footerStyle}>Footer</Footer>
-//     </Layout>
-
-//     <Layout style={layoutStyle}>
-//       <Header style={headerStyle}>Header</Header>
-//       <Layout>
-//         <Sider width="25%" style={siderStyle}>
-//           Sider
-//         </Sider>
-//         <Content style={contentStyle}>Content</Content>
-//       </Layout>
-//       <Footer style={footerStyle}>Footer</Footer>
-//     </Layout>
-
-//     <Layout style={layoutStyle}>
-//       <Header style={headerStyle}>Header</Header>
-//       <Layout>
-//         <Content style={contentStyle}>Content</Content>
-//         <Sider width="25%" style={siderStyle}>
-//           Sider
-//         </Sider>
-//       </Layout>
-//       <Footer style={footerStyle}>Footer</Footer>
-//     </Layout>
-
-//     <Layout style={layoutStyle}>
-//       <Sider width="25%" style={siderStyle}>
-//         Sider
-//       </Sider>
-//       <Layout>
-//         <Header style={headerStyle}>Header</Header>
-//         <Content style={contentStyle}>Content</Content>
-//         <Footer style={footerStyle}>Footer</Footer>
-//       </Layout>
-//     </Layout>
-//   </Flex>
-// );
-
-// export default App;
-
-let nextId = 0;
-let todos = [{ id: nextId++, text: "Todo #1" }];
-let listeners: Array<any> = [];
-
-export const todosStore = {
-  addTodo() {
-    todos = [...todos, { id: nextId++, text: "Todo #" + nextId }];
-    emitChange();
-  },
-  subscribe(listener: any) {
-    listeners = [...listeners, listener];
-    return () => {
-      listeners = listeners.filter((l) => l !== listener);
+function addToCart(prevState: State, queryData: FormData): State {
+  const itemID = queryData.get("itemID");
+  if (itemID === "1") {
+    return {
+      success: true,
+      cartSize: 12,
     };
-  },
-  getSnapshot() {
-    return todos;
-  },
-};
-
-function emitChange() {
-  for (let listener of listeners) {
-    listener();
+  } else {
+    return {
+      success: false,
+      message: "商品已售罄",
+    };
   }
 }
 
-export default function TodosApp() {
-  const todos = useSyncExternalStore(
-    todosStore.subscribe,
-    todosStore.getSnapshot
+function AddToCartForm({ itemID, itemTitle }: Props) {
+  const isOnline = useOnlineStatus();
+  const [formState, formAction, isPending] = useActionState(
+    addToCart,
+    {},
+    "url"
   );
+  const passwordHintId = useId();
   return (
-    <>
-      <button onClick={() => todosStore.addTodo()}>Add todo</button>
-      <hr />
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
-        ))}
-      </ul>
-    </>
+    <form action={formAction}>
+      {passwordHintId}
+      {isOnline ? <p>online</p> : <p>offline</p>}
+      <h2>{itemTitle}</h2>
+      <input type="hidden" name="itemID" value={itemID} />
+      <button type="submit">加入购物车</button>
+      {formState?.success && (
+        <div className="toast">
+          成功加入购物车！当前购物车中共有 {formState.cartSize} 件商品。
+        </div>
+      )}
+      {formState?.success === false && (
+        <div className="error">加入购物车失败：{formState.message}</div>
+      )}
+    </form>
   );
 }
