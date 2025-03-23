@@ -56,5 +56,9 @@
 [博客链接](https://blog.csdn.net/sqlxx/article/details/119056336)
 [学习笔记](https://www.bookstack.cn/read/learning-http2/content-frame-definition-settings.md)
 
-## 7.使用URL Scheme和URL Link跳转至小程序
+## 7. 使用URL Scheme和URL Link跳转至小程序
 [官网开发文档](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/url-link.html)
+
+## 8. 响应式图片
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Responsive_images)
