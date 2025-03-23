@@ -56,9 +56,65 @@
 [博客链接](https://blog.csdn.net/sqlxx/article/details/119056336)
 [学习笔记](https://www.bookstack.cn/read/learning-http2/content-frame-definition-settings.md)
 
-## 7. 使用URL Scheme和URL Link跳转至小程序
+## 7.使用URL Scheme和URL Link跳转至小程序
 [官网开发文档](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/url-link.html)
 
-## 8. 响应式图片
+## 8. react-devtools启动react开发者工具
 
-[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Responsive_images)
+## 9. 微数据
+
+## 10. precedence优先级控制
+
+## 11. 分词与词法分析
+- ### 分词
+分词是将程序源代码分解成一个个词素的过程。词素是程序代码中的最小语义单位，这些词素最终组成一个token列表，每个token包含一个lexeme‌。例如变量名、关键字、运算符、常量等等。分词的目的是将源代码转化为词法单元序列，方便后续的词法分析和语法分析。
+在分词的过程中，需要注意以下几点：
+#### 忽略空格和注释
+在分词的过程中，需要忽略源代码中的空格和注释。因为它们对程序的语义没有影响，而只会增加分析的复杂度。因此，分词器通常会忽略它们。
+#### 处理特殊符号
+程序源代码中可能包含各种特殊符号，例如括号、逗号、分号等等。这些符号需要被分词器正确地处理，以便后续的分析能够正确地进行。
+#### 识别关键字和标识符
+在程序中，关键字和标识符是非常重要的部分。关键字是编程语言中预定义的一些特殊单词，例如if、else、while等等。标识符是由程序员定义的用于标识变量、函数、类等等的名称。分词器需要能够正确地识别这些关键字和标识符，并将它们转化为相应的词法单元。
+-  ### 词法分析
+词法分析是将分词后的词法单元序列转化为有意义的语法单元序列的过程。语法单元是指具有一定语法意义的单元，例如表达式、语句、函数等等。
+在词法分析的过程中，需要注意以下几点：
+#### 识别词法单元类型
+分词后得到的词法单元序列需要被词法分析器进一步处理，将每个词法单元的类型识别出来。例如，变量名、关键字、运算符等等，每种类型的词法单元都需要被正确地识别出来
+#### 构建语法单元序列
+词法分析器需要根据语言的语法规则，将词法单元序列转化为有意义的语法单元序列。例如，将一些词法单元组合成一个表达式，将一些语法单元组合成一个语句等等。
+#### 错误处理
+在词法分析的过程中，可能会出现一些词法错误，例如未定义的变量、拼写错误的关键字等等。词法分析器需要能够正确地识别这些错误，并进行相应的处理。
+
+## BigInt
+BigInt 是一种内置对象，它提供了一种方法来表示大于 2^53 - 1 的整数(<span style="color:skyblue">Number.MAX_SAFE_INTEGER</span>), BigInt 可以表示任意大的整数。  
+可以用在一个整数字面量后面加 n 的方式定义一个 BigInt。   
+不能用于 Math 对象中的方法；不能和任何 Number 实例混合运算，两者必须转换成同一种类型。在两种类型来回转换时要小心，因为 BigInt 变量在转换成 Number 变量时可能会丢失精度。 
+因为 BigInt 都是有符号的， >>> （无符号右移）不能用于 BigInt。BigInt 不支持单目 (+) 运算符(<span style="color:red">目前来看可以单目操作</span>)  
+BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可以混在一个数组内并排序。
+### 静态方法
+- #### BigInt.asIntN()
+将 BigInt 值转换为一个 -2^(width-1) 与 2^(width-1) - 1 之间的有符号整数。
+- #### BigInt.asUintN()
+将一个 BigInt 值转换为 0 与 2^(width) - 1 之间的无符号整数。
+### 使用建议
+#### 转化
+由于在 Number 与 BigInt 之间进行转换会损失精度，因而建议仅在值可能大于 2^53 时使用 BigInt 类型，并且不在两种类型之间进行相互转换。
+
+#### 密码学
+由于对 BigInt 的操作不是常数时间的，因而 BigInt 不适合用于[密码学](https://www.chosenplaintext.ca/articles/beginners-guide-constant-time-cryptography.html)。
+
+#### 在JSON 中使用
+对任何 BigInt 值使用 JSON.stringify() 都会引发 TypeError，因为默认情况下 BigInt 值不会在 JSON 中序列化。但是，如果需要，可以实现 toJSON 方法：
+
+
+        BigInt.prototype.toJSON = function () {
+          return this.toString();
+        };
+        JSON.stringify(BigInt(1));
+        // '"1"'
+
+
+## 12. webpack资源模块
+
+[webpack官网](https://webpack.docschina.org/guides/asset-modules/#root)
+
