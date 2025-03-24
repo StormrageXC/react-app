@@ -118,3 +118,6 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 
 [webpack官网](https://webpack.docschina.org/guides/asset-modules/#root)
 
+## 13. git commit --amend window下使用insert键插入修改
+
+
