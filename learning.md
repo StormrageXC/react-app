@@ -118,6 +118,7 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 
 [webpack官网](https://webpack.docschina.org/guides/asset-modules/#root)
 
-## 13. git commit --amend window下使用insert键插入修改
-
+## 13. 响应式图片
+页面缩放会触发srcset的改变
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Responsive_images)
 

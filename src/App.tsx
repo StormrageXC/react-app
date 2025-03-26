@@ -9,6 +9,7 @@ import login from "./login";
 import { useActionState } from "react";
 import image from "./assets/Frame_495@3x.png";
 import image2 from "./assets/Frame_496@3x.png";
+import "./App.css";
 // const imageUrl = new URL(`../public/Frame_495@3x.png`, import.meta.url);
 console.log(image);
 function useOnlineStatus() {
@@ -101,10 +102,15 @@ function AddToCartForm({ itemID, itemTitle }: Props) {
       <h2>{itemTitle}</h2>
       <input type="hidden" name="itemID" value={itemID} />
       <button type="submit">加入购物车</button>
+      <img
+        src={image}
+        srcSet={`${image} 480w, ${image2} 800w`}
+        sizes="(max-width: 600px) 480px,
+         800px"
+      />
       {formState?.success && (
         <div className="toast">
           成功加入购物车！当前购物车中共有 {formState.cartSize} 件商品。
-          <img src={image} srcSet={`${image} 2560w, ${image2} 1440w`} />
         </div>
       )}
       {formState?.success === false && (
