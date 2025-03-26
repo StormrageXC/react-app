@@ -9,14 +9,20 @@
   <body>
     <div id="root"></div>
     <script>
-      var minimumSum = function (n, k) {
-        let i = 1;
-        getSum(n);
-      };
-      function getSum(n) {
-        let sum = 0;
+      function a() {
+        console.log(this.x);
       }
-      minimumSum(5, 4);
+      var x = 1;
+      var obj = {
+        x: 2,
+        a: a,
+      };
+      var obj2 = {
+        x: 3,
+      };
+      const b = a.bind(obj2);
+      obj.a = b;
+      b.apply(obj);
     </script>
   </body>
 </html>
