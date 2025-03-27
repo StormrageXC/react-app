@@ -1,8 +1,6 @@
-const path = require("path"),
-  { resolve } = path,
-  HtmlWebpackPlugin = require("html-webpack-plugin");
-console.log(__dirname);
-module.exports = {
+import { resolve } from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+export default {
   target: "web",
   entry: resolve("src/index.tsx"),
   plugins: [
