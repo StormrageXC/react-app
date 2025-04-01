@@ -6,6 +6,8 @@ export default merge(base, {
   mode: "development",
   devtool: "source-map",
   devServer: {
+    historyApiFallback: true,
+    allowedHosts: "all",
     client: {
       progress: true, //在浏览器中以百分比显示编译进度
     },
