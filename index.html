@@ -7,22 +7,6 @@
     <!-- <script src="http://localhost:8097"></script> -->
   </head>
   <body>
-    <div id="root"></div>
-    <script>
-      function a() {
-        console.log(this.x);
-      }
-      var x = 1;
-      var obj = {
-        x: 2,
-        a: a,
-      };
-      var obj2 = {
-        x: 3,
-      };
-      const b = a.bind(obj2);
-      obj.a = b;
-      b.apply(obj);
-    </script>
+    <div id="yourContainer"></div>
   </body>
 </html>
