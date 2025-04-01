@@ -4,3 +4,5 @@
 ## 2. gulp运行文件gulpfile.js、
 
 ## 3. gulp-imagemin会报错，应直接使用imagemin
+
+## 4. a标签下载依赖同源策略
