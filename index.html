@@ -6,7 +6,27 @@
     <title>react-app</title>
     <!-- <script src="http://localhost:8097"></script> -->
   </head>
+
   <body>
     <div id="yourContainer"></div>
+    <button id="test">Start Demo</button>
+    <script>
+      a = {};
+      Object.defineProperty(a, "b", {
+        configurable: true,
+        enumerable: true,
+        value: 2,
+        writable: false,
+      });
+      a.b = 3;
+      console.log(a.b);
+      Object.defineProperty(a, "b", {
+        configurable: true,
+        enumerable: true,
+        value: 3,
+        writable: false,
+      });
+      console.log(a.b);
+    </script>
   </body>
 </html>

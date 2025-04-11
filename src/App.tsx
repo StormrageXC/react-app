@@ -7,13 +7,14 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, ConfigProvider } from "antd";
+import { NavLink, Link, Routes, Route, Navigate } from "react-router";
+import Login from "./login";
 import "./app.scss";
 import { light, dark } from "./theme";
 const { Header, Sider, Content, Footer } = Layout;
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [themes, setThemes] = useState("light"); // ["light", "dark"]
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -52,6 +53,17 @@ const App: React.FC = () => {
               },
             ]}
           />
+          <nav>
+            {/* NavLink makes it easy to show active states */}
+            <NavLink
+              to="/login"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              app
+            </NavLink>
+
+            <Link to="/login">login</Link>
+          </nav>
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: colorBgContainer }}>
@@ -74,6 +86,11 @@ const App: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
+            <Routes>
+              <Route path="/" element={<Navigate to={`/login`} replace />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
             <div id="qiankun"></div>
           </Content>
           <Footer style={{ textAlign: "center" }}>App is building...</Footer>

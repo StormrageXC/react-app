@@ -2,6 +2,7 @@
 //   base = require("./webpack.base.js");
 import { merge } from "webpack-merge";
 import base from "./webpack.base.js";
+console.log();
 export default merge(base, {
   mode: "development",
   devtool: "source-map",
@@ -10,6 +11,9 @@ export default merge(base, {
     allowedHosts: "all",
     client: {
       progress: true, //在浏览器中以百分比显示编译进度
+    },
+    headers: {
+      "Access-Control-Allow-Origin": "*",
     },
     compress: true,
     hot: true,
@@ -20,6 +24,11 @@ export default merge(base, {
       },
     },
     port: 8081,
-    proxy: [],
+    proxy: [
+      {
+        context: ["/NiceFish-React"],
+        target: "http://localhost:8091/",
+      },
+    ],
   },
 });

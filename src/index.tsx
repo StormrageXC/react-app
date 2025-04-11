@@ -4,17 +4,15 @@ import App from "./App";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { registerMicroApps, start } from "qiankun";
 import Login from "./login";
+import "@ant-design/v5-patch-for-react-19";
 const basename = "/";
 const el = document.getElementById("yourContainer"),
   root = createRoot(el!);
 root.render(
   <StrictMode>
     <BrowserRouter basename={basename}>
-      <Routes>
-        <Route path="/" element={<Navigate to={`/app`} replace />} />
-        <Route path="/app" element={<App />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <App />
+      INPUT: <input id="123" />
     </BrowserRouter>
   </StrictMode>
 );
@@ -22,8 +20,8 @@ root.render(
 registerMicroApps(
   [
     {
-      name: "nicefish-react-main", // app name registered
-      entry: "//localhost:8091/post",
+      name: "child-react-app", // app name registered
+      entry: "//localhost:8082/",
       container: "#qiankun",
       activeRule: "/app",
     },
@@ -38,4 +36,21 @@ registerMicroApps(
   }
 );
 
-start();
+function Handle() {
+  queueMicrotask(() => {
+    document.body.click();
+  });
+}
+document.body.onclick = function () {
+  console.log("body click");
+};
+console.log("start");
+Handle();
+console.log("end");
+start({
+  sandbox: {
+    // strictStyleIsolation: true, // 严格模式，开启shadow dom
+    // experimentalStyleIsolation: true,
+  },
+  singular: true,
+});
