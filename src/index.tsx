@@ -12,7 +12,6 @@ root.render(
   <StrictMode>
     <BrowserRouter basename={basename}>
       <App />
-      INPUT: <input id="123" />
     </BrowserRouter>
   </StrictMode>
 );
