@@ -122,3 +122,42 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 页面缩放会触发srcset的改变
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Responsive_images)
 
+## 14. 双精度浮点数和单精度浮点数对比
+
+  <table>
+    <thead>
+      <tr>
+        <th>类型</th>
+        <th>符号位</th>
+        <th>指数位</th>
+        <th>阶码位</th>
+      </tr>
+      <thead>
+      <tbody>
+        <tr>
+          <th>双精度浮点数</th>
+          <th>1</th>
+          <th>11</th>
+          <th>52</th>
+        </tr>
+        <tr>
+          <th>单精度浮点数</th>
+          <th>1</th>
+          <th>8</th>
+          <th>23</th>
+        </tr>
+      </tbody>
+  </table>
+
+## 15. 事件循环
+
+- 任务队列是集合，而不是队列，因为事件循环处理模型从所选队列中获取第一个可运行的任务，而不是出队第一个任务。
+- 微任务队列不是任务队列。
+
+### 事件
+
+在特定Event对象上分发EventTarget对象通常由专门的任务完成。
+
+- 并非所有事件都使用任务队列分发；许多事件在其他任务期间分发。
+
+[事件循环event-loop](https://htmlspecs.com/#event-loop)
