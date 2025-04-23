@@ -11,8 +11,11 @@ import { NavLink, Link, Routes, Route, Navigate } from "react-router";
 import Login from "./login";
 import "./app.scss";
 import { light, dark } from "./theme";
+import image from "./assets/sunrise.jpeg";
+import video from "./assets/video.mp4";
+import txt from "./assets/a.txt";
 const { Header, Sider, Content, Footer } = Layout;
-
+console.log(txt);
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -86,6 +89,13 @@ const App: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
+            {/* <img src={image} style={{ width: "100%" }} /> */}
+            <video
+              src={video}
+              poster={image}
+              controls
+              style={{ width: "100%" }}
+            ></video>
             <Routes>
               <Route path="/" element={<Navigate to={`/login`} replace />} />
               <Route path="/login" element={<Login />} />

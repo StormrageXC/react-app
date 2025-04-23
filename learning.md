@@ -161,3 +161,13 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 - 并非所有事件都使用任务队列分发；许多事件在其他任务期间分发。
 
 [事件循环event-loop](https://htmlspecs.com/#event-loop)
+
+## 16. crossOrigin 属性设置图片的跨域访问权限。
+
+-  crossOrigin="anonymous"：由 HTMLLinkElement 发送的请求将使用 cors mode 模式和 same-origin credentials 模式。这意味着如果资源是从加载文档的相同源获取的，则将启用 CORS 并发送凭据。
+-  crossOrigin="use-credentials"：由 HTMLLinkElement 发送的请求将使用 cors mode 模式和 include credentials 模式。该元素请求的所有资源都将使用 CORS，无论获取来自哪个域。。
+-  如果为 crossOrigin 属性指定了任何其他值，则它与指定为 anonymous 的效果相同。如果未指定 crossOrigin 属性，则资源将在没有 CORS 的情况下被获取（即使用 no-cors mode 模式和 same-origin credentials 模式）
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLLinkElement/crossOrigin)
+
+
