@@ -36,7 +36,7 @@ export default {
         type: "asset/source",
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
+        test: /\.(gif|png|jpe?g|svg|jfif)$/i,
         type: "asset",
         parser: {
           dataUrlCondition: {

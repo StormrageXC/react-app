@@ -6,8 +6,18 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme, ConfigProvider } from "antd";
-import { NavLink, Link, Routes, Route, Navigate } from "react-router";
+import {
+  Button,
+  Layout,
+  Menu,
+  theme,
+  ConfigProvider,
+  Input,
+  Row,
+  Col,
+} from "antd";
+import { NavLink, Link, Routes, Route, Navigate } from "react-router-dom";
+import { SearchOutlined } from "@ant-design/icons";
 import Login from "./login";
 import "./app.scss";
 import { light, dark } from "./theme";
@@ -24,7 +34,7 @@ const App: React.FC = () => {
   return (
     <ConfigProvider
       theme={{
-        token: collapsed ? light : dark,
+        token: collapsed ? dark : light,
       }}
     >
       <Layout
@@ -32,7 +42,7 @@ const App: React.FC = () => {
           minHeight: "100vh",
         }}
       >
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
           <div className="demo-logo-vertical" />
           <Menu
             theme="light"
@@ -42,44 +52,42 @@ const App: React.FC = () => {
               {
                 key: "1",
                 icon: <UserOutlined />,
-                label: "nav 1",
+                label: <Link to="/app">app</Link>,
               },
               {
                 key: "2",
                 icon: <VideoCameraOutlined />,
-                label: "nav 2",
+                label: <Link to="/login">login</Link>,
               },
               {
                 key: "3",
                 icon: <UploadOutlined />,
-                label: "nav 3",
+                label: <Link to="/">default</Link>,
               },
             ]}
           />
-          <nav>
-            {/* NavLink makes it easy to show active states */}
-            <NavLink
-              to="/login"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              app
-            </NavLink>
-
-            <Link to="/login">login</Link>
-          </nav>
         </Sider>
-        <Layout>
+        <Layout style={{ overflow: "auto", maxHeight: "100vh" }}>
           <Header style={{ padding: 0, background: colorBgContainer }}>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            />
+            <Row>
+              <Col span={1}>
+                <Button
+                  type="text"
+                  icon={
+                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                  }
+                  onClick={() => setCollapsed(!collapsed)}
+                  style={{
+                    fontSize: "16px",
+                    width: 64,
+                    height: 64,
+                  }}
+                />
+              </Col>
+              <Col span={2}>
+                <Input prefix={<SearchOutlined />}></Input>
+              </Col>
+            </Row>
           </Header>
           <Content
             style={{
@@ -89,18 +97,6 @@ const App: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            {/* <img src={image} style={{ width: "100%" }} /> */}
-            <video
-              src={video}
-              poster={image}
-              controls
-              style={{ width: "100%" }}
-            ></video>
-            <Routes>
-              <Route path="/" element={<Navigate to={`/login`} replace />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
             <div id="qiankun"></div>
           </Content>
           <Footer style={{ textAlign: "center" }}>App is building...</Footer>

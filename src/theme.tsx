@@ -3,6 +3,6 @@ export const light = {
   borderRadiusLG: 10,
 };
 export const dark = {
-  colorBgContainer: "pink",
+  colorBgContainer: "#fad1d8",
   borderRadiusLG: 10,
 };

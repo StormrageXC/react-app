@@ -5,117 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>react-app</title>
     <!-- <script src="http://localhost:8097"></script> -->
+    <style></style>
   </head>
-
   <body>
-    <div id="add">add</div>
-    <script>
-      // var myAtoi = function (str) {
-      //   // 自动机类
-      //   class Automaton {
-      //     constructor() {
-      //       this.state = "start";
-      //       this.sign = 1;
-      //       this.answer = 0;
-      //       this.map = new Map([
-      //         ["start", ["start", "signed", "in_number", "end"]],
-      //         ["signed", ["end", "end", "in_number", "end"]],
-      //         ["in_number", ["end", "end", "in_number", "end"]],
-      //         ["end", ["end", "end", "end", "end"]],
-      //       ]);
-      //     }
-      //     getIndex(char) {
-      //       if (char === " ") {
-      //         return 0;
-      //       } else if (char === "-" || char === "+") {
-      //         return 1;
-      //       } else if (typeof Number(char) === "number" && !isNaN(char)) {
-      //         return 2;
-      //       } else {
-      //         return 3;
-      //       }
-      //     }
-
-      //     get(char) {
-      //       this.state = this.map.get(this.state)[this.getIndex(char)];
-      //       if (this.state === "in_number") {
-      //         this.answer = this.answer * 10 + (char - 0);
-      //         this.answer =
-      //           this.sign === 1
-      //             ? Math.min(this.answer, Math.pow(2, 31) - 1)
-      //             : Math.min(this.answer, -Math.pow(-2, 31));
-      //       } else if (this.state === "signed") {
-      //         this.sign = char === "+" ? 1 : -1;
-      //       }
-      //     }
-      //   }
-      //   let automaton = new Automaton();
-      //   for (let char of str) {
-      //     automaton.get(char);
-      //   }
-      //   return automaton.sign * automaton.answer;
-      // };
-      var generateParenthesis = function (n) {
-        const m = n * 2;
-        const ans = [];
-        const path = Array(m);
-        // i = 目前填了多少个括号
-        // open = 左括号个数，i-open = 右括号个数
-        function dfs(i, open) {
-          if (i === n * 2) {
-            ans.push(path.join(""));
-            return;
-          }
-          if (open < n) {
-            // 可以填左括号
-            path[i] = "(";
-            dfs(i + 1, open + 1);
-          }
-          if (i - open < open) {
-            // 可以填右括号
-            path[i] = ")";
-            dfs(i + 1, open);
-          }
-        }
-        dfs(0, 0);
-        return ans;
-      };
-    </script>
-
-    <!-- <div id="yourContainer"></div>
-    <script>
-      const isMatch = (s, p) => {
-        if (s == null || p == null) return false;
-
-        const sLen = s.length,
-          pLen = p.length;
-
-        const dp = new Array(sLen + 1);
-        for (let i = 0; i < dp.length; i++) {
-          dp[i] = new Array(pLen + 1).fill(false); // 将项默认为false
-        }
-        // base case
-        dp[0][0] = true;
-        for (let j = 1; j < pLen + 1; j++) {
-          if (p[j - 1] == "*") dp[0][j] = dp[0][j - 2];
-        }
-        // 迭代
-        for (let i = 1; i < sLen + 1; i++) {
-          for (let j = 1; j < pLen + 1; j++) {
-            if (s[i - 1] == p[j - 1] || p[j - 1] == ".") {
-              dp[i][j] = dp[i - 1][j - 1];
-            } else if (p[j - 1] == "*") {
-              if (s[i - 1] == p[j - 2] || p[j - 2] == ".") {
-                dp[i][j] = dp[i][j - 2] || dp[i - 1][j - 2] || dp[i - 1][j];
-              } else {
-                dp[i][j] = dp[i][j - 2];
-              }
-            }
-          }
-        }
-        return dp[sLen][pLen]; // 长sLen的s串 是否匹配 长pLen的p串
-      };
-      isMatch("ab", ".*");
-    </script> -->
+    <div id="layout">add</div>
   </body>
+  <script>
+    function* gen() {
+      try {
+        yield 1 + 1;
+        yield 2;
+        yield 3;
+      } catch (error) {
+        console.log(error, "INNER");
+      } finally {
+      }
+    }
+    const g = gen();
+    console.log(g.next());
+    try {
+      g.throw(new Error("error"));
+    } catch (error) {
+      console.log(error, "OUTER");
+    }
+  </script>
 </html>

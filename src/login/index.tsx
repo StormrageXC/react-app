@@ -1,4 +1,7 @@
 import React, { useSyncExternalStore } from "react";
+import image from "../assets/qljst.jpeg";
+import { Layout } from "antd";
+import "./index.scss";
 import { sculptureList } from "./data";
 let nextId = 0;
 let todos = [{ id: nextId++, text: "Todo #1" }];
@@ -27,19 +30,5 @@ function emitChange() {
 }
 
 export default function TodosApp() {
-  const todos = useSyncExternalStore(
-    todosStore.subscribe,
-    todosStore.getSnapshot
-  );
-  return (
-    <>
-      <button onClick={() => todosStore.addTodo()}>Add todo</button>
-      <hr />
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
-        ))}
-      </ul>
-    </>
-  );
+  return <Layout className="layout">、123</Layout>;
 }
