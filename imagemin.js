@@ -1,8 +1,10 @@
 import imagemin from "imagemin";
 import imageminJpegtran from "imagemin-jpegtran";
 import imageminPngquant from "imagemin-pngquant";
+// import imageminGifsicle from "imagemin-gifsicle";
+import imageminPngcrush from "imagemin-pngcrush";
 const files = async () => {
-  await imagemin(["src/assets/*.{jpg,png}"], {
+  await imagemin(["src/assets/*.{jpg,png,gif}"], {
     destination: "build/images",
     plugins: [
       imageminJpegtran({
@@ -16,6 +18,7 @@ const files = async () => {
         dithering: 1, // 抖动级别，0-1，默认为1
         posterize: 4, // 后级化处理，4为默认值
       }),
+      imageminPngcrush(),
     ],
   });
 };
