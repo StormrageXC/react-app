@@ -7,18 +7,19 @@ import { registerMicroApps, start } from "qiankun";
 import Login from "./login";
 import "@ant-design/v5-patch-for-react-19";
 const basename = "/";
+import store from "./store";
+import { Provider } from "react-redux";
 import { light, dark } from "./theme";
+console.log(store);
 const el = document.getElementById("layout"),
   root = createRoot(el!);
 root.render(
   <StrictMode>
-    <BrowserRouter basename={basename}>
-      <Routes>
-        <Route path="/" element={<Navigate to={`/app`} replace />} />
-        <Route path="/app/*" element={<App />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter basename={basename}>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </StrictMode>
 );
 

@@ -25,18 +25,27 @@ import image from "./assets/sunrise.jpeg";
 import video from "./assets/video.mp4";
 import txt from "./assets/a.txt";
 const { Header, Sider, Content, Footer } = Layout;
+import { changeTheme } from "./store/themeSlice";
+import { useSelector, useDispatch } from "react-redux";
 console.log(txt);
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const dispatch = useDispatch();
   return (
     <ConfigProvider
       theme={{
         token: collapsed ? dark : light,
       }}
     >
+      {" "}
+      <Routes>
+        <Route path="/" element={<Navigate to={`/login`} replace />} />
+        <Route path="/app/*" element={<App />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <Layout
         style={{
           minHeight: "100vh",
@@ -76,7 +85,10 @@ const App: React.FC = () => {
                   icon={
                     collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
                   }
-                  onClick={() => setCollapsed(!collapsed)}
+                  onClick={() => {
+                    setCollapsed(!collapsed);
+                    dispatch(changeTheme(collapsed));
+                  }}
                   style={{
                     fontSize: "16px",
                     width: 64,
