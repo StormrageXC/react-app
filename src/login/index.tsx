@@ -6,29 +6,22 @@ import { sculptureList } from "./data";
 let nextId = 0;
 let todos = [{ id: nextId++, text: "Todo #1" }];
 let listeners: Array<any> = [];
-
-export const todosStore = {
-  addTodo() {
-    todos = [...todos, { id: nextId++, text: "Todo #" + nextId }];
-    emitChange();
-  },
-  subscribe(listener: any) {
-    listeners = [...listeners, listener];
-    return () => {
-      listeners = listeners.filter((l) => l !== listener);
-    };
-  },
-  getSnapshot() {
-    return todos;
-  },
-};
-
-function emitChange() {
-  for (let listener of listeners) {
-    listener();
-  }
-}
-
+const url = new URL("../assets/sunrise.jpeg", import.meta.url);
+console.log(url);
 export default function TodosApp() {
-  return <Layout className="layout">、123</Layout>;
+  return (
+    <Layout className="layout">
+      <form action="">
+        <div className="item">
+          <label htmlFor="username">账户</label>
+          <input type="text" id="username" />
+        </div>
+        <div className="item">
+          <label htmlFor="password">密码</label>
+          <input type="password" id="password" />
+        </div>
+        <button type="submit">登录</button>
+      </form>
+    </Layout>
+  );
 }

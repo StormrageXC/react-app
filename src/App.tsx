@@ -19,101 +19,30 @@ import {
 import { NavLink, Link, Routes, Route, Navigate } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import Login from "./login";
+import LayoutPage from "./layout";
 import "./app.scss";
 import { light, dark } from "./theme";
 import image from "./assets/sunrise.jpeg";
 import video from "./assets/video.mp4";
 import txt from "./assets/a.txt";
 const { Header, Sider, Content, Footer } = Layout;
-import { changeTheme } from "./store/themeSlice";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
 console.log(txt);
 const App: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-  const dispatch = useDispatch();
+  const theme = useSelector((state: any) => state.theme.value);
   return (
     <ConfigProvider
       theme={{
-        token: collapsed ? dark : light,
+        token: theme ? dark : light,
       }}
     >
-      {" "}
+      {theme}
       <Routes>
         <Route path="/" element={<Navigate to={`/login`} replace />} />
-        <Route path="/app/*" element={<App />} />
+        <Route path="/app" element={<LayoutPage />} />
         <Route path="/login" element={<Login />} />
       </Routes>
-      <Layout
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="light"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            items={[
-              {
-                key: "1",
-                icon: <UserOutlined />,
-                label: <Link to="/app">app</Link>,
-              },
-              {
-                key: "2",
-                icon: <VideoCameraOutlined />,
-                label: <Link to="/login">login</Link>,
-              },
-              {
-                key: "3",
-                icon: <UploadOutlined />,
-                label: <Link to="/">default</Link>,
-              },
-            ]}
-          />
-        </Sider>
-        <Layout style={{ overflow: "auto", maxHeight: "100vh" }}>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
-            <Row>
-              <Col span={1}>
-                <Button
-                  type="text"
-                  icon={
-                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                  }
-                  onClick={() => {
-                    setCollapsed(!collapsed);
-                    dispatch(changeTheme(collapsed));
-                  }}
-                  style={{
-                    fontSize: "16px",
-                    width: 64,
-                    height: 64,
-                  }}
-                />
-              </Col>
-              <Col span={2}>
-                <Input prefix={<SearchOutlined />}></Input>
-              </Col>
-            </Row>
-          </Header>
-          <Content
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <div id="qiankun"></div>
-          </Content>
-          <Footer style={{ textAlign: "center" }}>App is building...</Footer>
-        </Layout>
-      </Layout>
     </ConfigProvider>
   );
 };
