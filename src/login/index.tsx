@@ -2,13 +2,17 @@ import React, { useSyncExternalStore } from "react";
 import image from "../assets/qljst.jpeg";
 import { Layout } from "antd";
 import "./index.scss";
-import { sculptureList } from "./data";
+import { useNavigate } from "react-router-dom";
 let nextId = 0;
 let todos = [{ id: nextId++, text: "Todo #1" }];
 let listeners: Array<any> = [];
 const url = new URL("../assets/sunrise.jpeg", import.meta.url);
-console.log(url);
-export default function TodosApp() {
+
+export default function Login() {
+  const navigate = useNavigate();
+  function login() {
+    navigate("/app");
+  }
   return (
     <Layout className="layout">
       <form action="">
@@ -20,7 +24,7 @@ export default function TodosApp() {
           <label htmlFor="password">密码</label>
           <input type="password" id="password" />
         </div>
-        <button type="submit">登录</button>
+        <button onClick={login}>登录</button>
       </form>
     </Layout>
   );

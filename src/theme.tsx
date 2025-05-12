@@ -1,8 +1,12 @@
 export const light = {
-  colorBgContainer: "skyblue",
+  colorBgContainer: "white",
   borderRadiusLG: 10,
+  colorText: "black",
 };
 export const dark = {
-  colorBgContainer: "#fad1d8",
+  colorBgContainer: "black",
   borderRadiusLG: 10,
+  colorText: "white",
+  colorBgLayout: "darkgrey",
+  colorPrimaryBg: "darkgrey",
 };

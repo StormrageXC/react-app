@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -6,16 +6,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Layout,
-  Menu,
-  theme,
-  ConfigProvider,
-  Input,
-  Row,
-  Col,
-} from "antd";
+import { Button, Layout, Menu, theme, Input, Row, Col } from "antd";
 import { NavLink, Link, Routes, Route, Navigate } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import Login from "./login";
@@ -27,13 +18,22 @@ import txt from "./assets/a.txt";
 const { Header, Sider, Content, Footer } = Layout;
 import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
+import themeReducer from "./reducer";
+import { themeContext } from "./context";
 console.log(txt);
-const App: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
+interface State {
+  onDispatch: Function;
+}
+const App: React.FC<State> = ({ onDispatch }) => {
+  const themeSatus = useContext(themeContext);
+  const [collapsed, setCollapsed] = useState(!themeSatus);
   const {
     token: { colorBgContainer, borderRadiusLG },
+    token,
   } = theme.useToken();
   const dispatch = useDispatch();
+  const a = Object.keys(token).filter((key) => token[key] === "#e6f4ff");
+  console.log(a);
   return (
     <Layout
       style={{
