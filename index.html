@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>react-app</title>
+    <% if (process.env.NODE_ENV === 'development') { %>
+    <script src="http://localhost:8097"></script>
+    <% } %>
     <!-- <script src="http://localhost:8097"></script> -->
     <style></style>
   </head>
@@ -11,22 +14,10 @@
     <div id="layout">add</div>
   </body>
   <script>
-    function* gen() {
-      try {
-        yield 1 + 1;
-        yield 2;
-        yield 3;
-      } catch (error) {
-        console.log(error, "INNER");
-      } finally {
-      }
-    }
-    const g = gen();
-    console.log(g.next());
-    try {
-      g.throw(new Error("error"));
-    } catch (error) {
-      console.log(error, "OUTER");
-    }
+    const input = document.getElementById("input");
+    input.oninput = function (e) {
+      const layout = document.getElementById("layout");
+      layout.innerHTML = input.value;
+    };
   </script>
 </html>

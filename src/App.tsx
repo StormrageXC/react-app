@@ -7,10 +7,10 @@ import "./app.scss";
 import { light, dark } from "./theme";
 import themeReducer from "./reducer";
 import { themeContext } from "./context";
+import { useDispatch, useSelector } from "react-redux";
 interface State {
   onDispatch: Function;
 }
-import { useDispatch, useSelector } from "react-redux";
 const App: React.FC = () => {
   const theme = useSelector((state: any) => state.theme.value);
   const [state, dispatch] = useReducer(themeReducer, { theme: true });

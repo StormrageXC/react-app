@@ -1,31 +1,111 @@
-import React, { useSyncExternalStore } from "react";
-import image from "../assets/qljst.jpeg";
-import { Layout } from "antd";
+import React, { useActionState, useState } from "react";
+import type { FormProps } from "antd";
+import { Layout, Button, Checkbox, Form, Input, ConfigProvider } from "antd";
 import "./index.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 let nextId = 0;
 let todos = [{ id: nextId++, text: "Todo #1" }];
 let listeners: Array<any> = [];
-const url = new URL("../assets/sunrise.jpeg", import.meta.url);
-
+const url = new URL("../assets/love-death-robot.gif", import.meta.url);
+function increment(previousState: Boolean, formData: any) {
+  console.log(formData.entries().next());
+  return previousState;
+}
 export default function Login() {
   const navigate = useNavigate();
+  const [state, formAction] = useActionState(increment, false);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
   function login() {
-    navigate("/app");
+    redirect("/app");
   }
+  function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
+    setFormData({ ...formData, username: e.target.value });
+  }
+  type FieldType = {
+    username?: string;
+    password?: string;
+    remember?: string;
+  };
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    navigate("/app");
+  };
+
+  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+    errorInfo
+  ) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
-    <Layout className="layout">
-      <form action="">
-        <div className="item">
-          <label htmlFor="username">账户</label>
-          <input type="text" id="username" />
-        </div>
-        <div className="item">
-          <label htmlFor="password">密码</label>
-          <input type="password" id="password" />
-        </div>
-        <button onClick={login}>登录</button>
-      </form>
-    </Layout>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#043170",
+        },
+        components: {
+          Button: {
+            primaryShadow: "0 2px 0 rgba(5,145,255,0.1)",
+          },
+          Checkbox: {},
+        },
+      }}
+    >
+      <Layout className="layout">
+        <main>
+          <header></header>
+          <Form
+            action={formAction}
+            name="basic"
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 18 }}
+            style={{ maxWidth: 600 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+          >
+            <Form.Item<FieldType>
+              label="Username"
+              name="username"
+              rules={[
+                { required: true, message: "Please input your username!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              name="remember"
+              valuePropName="checked"
+              label={null}
+            >
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item
+              label={null}
+              wrapperCol={{ span: 24 }}
+              className="button-wrapper"
+            >
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </main>
+      </Layout>
+    </ConfigProvider>
   );
 }
