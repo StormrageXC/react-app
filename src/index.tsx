@@ -2,7 +2,7 @@ import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ConfigProvider } from "antd";
 import App from "./App";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { registerMicroApps, start } from "qiankun";
 import Login from "./login";
 import "@ant-design/v5-patch-for-react-19";
@@ -14,13 +14,11 @@ console.log(store);
 const el = document.getElementById("layout"),
   root = createRoot(el!);
 root.render(
-  <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter basename={basename}>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </StrictMode>
+  <Provider store={store}>
+    <BrowserRouter basename={basename}>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 registerMicroApps(

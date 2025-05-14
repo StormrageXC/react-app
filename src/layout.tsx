@@ -18,9 +18,7 @@ import txt from "./assets/a.txt";
 const { Header, Sider, Content, Footer } = Layout;
 import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
-import themeReducer from "./reducer";
 import { themeContext } from "./context";
-console.log(txt);
 interface State {
   onDispatch: Function;
 }

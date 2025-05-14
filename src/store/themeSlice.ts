@@ -10,10 +10,11 @@ export const themeSlice = createSlice({
             state.value = !state.value;
             localStorage.setItem("theme", state.value.toString());
         },
+        getThemeData: (state) => {
+
+        }
     },
 });
-// 每个 case reducer 函数会生成对应的 Action creators
-console.log(themeSlice.actions);
 export const { changeTheme } = themeSlice.actions;
 
 export default themeSlice.reducer;

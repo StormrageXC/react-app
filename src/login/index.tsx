@@ -3,9 +3,8 @@ import type { FormProps } from "antd";
 import { Layout, Button, Checkbox, Form, Input, ConfigProvider } from "antd";
 import "./index.scss";
 import { useNavigate, redirect } from "react-router-dom";
-let nextId = 0;
-let todos = [{ id: nextId++, text: "Todo #1" }];
-let listeners: Array<any> = [];
+import { authState } from "../store/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 const url = new URL("../assets/love-death-robot.gif", import.meta.url);
 function increment(previousState: Boolean, formData: any) {
   console.log(formData.entries().next());
@@ -14,13 +13,12 @@ function increment(previousState: Boolean, formData: any) {
 export default function Login() {
   const navigate = useNavigate();
   const [state, formAction] = useActionState(increment, false);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-  function login() {
-    redirect("/app");
-  }
+
   function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
     setFormData({ ...formData, username: e.target.value });
   }
@@ -30,7 +28,8 @@ export default function Login() {
     remember?: string;
   };
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    navigate("/app");
+    dispatch(authState(), 1);
+    navigate("/app", { replace: true });
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
