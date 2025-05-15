@@ -3,8 +3,7 @@
     main{
         z-index: 0;
         position: absolute;
-        width: 400px;
-        height: 600px;
+        width: 450px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -12,7 +11,7 @@
     form{
         background-color: rgba(0,0,0,0.75);
         border-radius: 0 0 10px 10px;
-        padding:30px 20px ;
+        padding:50px 20px ;
         .button-wrapper{
             text-align: center;
         }
@@ -34,7 +33,7 @@
 .layout::before{
     content: '';
     position: absolute;
-    background: url(../assets/bg-1.jpeg) no-repeat center center/cover;
+    background: url(../assets/bg.jpg) no-repeat center center/cover;
     left: 0;
     right: 0;
     top: 0;

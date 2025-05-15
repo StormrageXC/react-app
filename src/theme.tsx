@@ -1,7 +1,8 @@
 export const light = {
-  colorBgContainer: "white",
+  colorBgContainer: "#0d1117",
   borderRadiusLG: 10,
-  colorText: "black",
+  colorText: "white",
+  colorBgLayout: "#25292e",
 };
 export const dark = {
   colorBgContainer: "black",
