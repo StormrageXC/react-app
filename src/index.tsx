@@ -1,7 +1,6 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ConfigProvider } from "antd";
-import App from "./App";
+import App from "./app";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { registerMicroApps, start } from "qiankun";
 import Login from "./login";
@@ -9,16 +8,17 @@ import "@ant-design/v5-patch-for-react-19";
 const basename = "/";
 import store from "./store";
 import { Provider } from "react-redux";
-import { light, dark } from "./theme";
 console.log(store);
 const el = document.getElementById("layout"),
   root = createRoot(el!);
 root.render(
-  <Provider store={store}>
-    <BrowserRouter basename={basename}>
-      <App />
-    </BrowserRouter>
-  </Provider>
+  <StrictMode>
+    <Provider store={store}>
+      <BrowserRouter basename={basename}>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>
 );
 
 registerMicroApps(

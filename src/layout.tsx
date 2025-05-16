@@ -9,12 +9,7 @@ import {
 import { Button, Layout, Menu, theme, Input, Row, Col } from "antd";
 import { NavLink, Link, Routes, Route, Navigate } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
-import Login from "./login";
-import "./app.scss";
-import { light, dark } from "./theme";
-import image from "./assets/sunrise.jpeg";
-import video from "./assets/video.mp4";
-import txt from "./assets/a.txt";
+import style from "./layout.module.scss";
 const { Header, Sider, Content, Footer } = Layout;
 import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,6 +17,10 @@ import { themeContext } from "./context";
 interface State {
   onDispatch: Function;
 }
+interface Style {
+  logo: string;
+}
+const myStyle: Style = style;
 const App: React.FC<State> = ({ onDispatch }) => {
   const themeSatus = useContext(themeContext);
   const [collapsed, setCollapsed] = useState(!themeSatus);
@@ -38,7 +37,7 @@ const App: React.FC<State> = ({ onDispatch }) => {
       }}
     >
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-        <div className="demo-logo-vertical" />
+        <div className={style.logo} />
         <Menu
           theme="light"
           mode="inline"
