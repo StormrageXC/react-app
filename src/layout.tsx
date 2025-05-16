@@ -20,8 +20,7 @@ interface State {
 interface Style {
   logo: string;
 }
-const myStyle: Style = style;
-const App: React.FC<State> = ({ onDispatch }) => {
+const LayoutPage: React.FC<State> = ({ onDispatch }) => {
   const themeSatus = useContext(themeContext);
   const [collapsed, setCollapsed] = useState(!themeSatus);
   const {
@@ -100,4 +99,4 @@ const App: React.FC<State> = ({ onDispatch }) => {
   );
 };
 
-export default App;
+export default LayoutPage;
