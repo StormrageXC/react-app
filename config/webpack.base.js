@@ -6,7 +6,7 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       base: { href: "/" },
-      template: resolve("index.html"),
+      template: resolve("src/index.html"),
     }),
   ],
   output: {
@@ -20,7 +20,7 @@ export default {
   module: {
     rules: [
       {
-        test: /\.(tsx|ts|js)$/,
+        test: /\.(tsx|ts|js|jsx)$/,
         exclude: /(node_modules)/,
         use: [
           {
@@ -50,11 +50,23 @@ export default {
       },
       {
         test: /\.scss|css$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // 开启css module
+            },
+          },
+          "sass-loader",
+        ],
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"], // 自动解析确定的扩展
+    extensions: [".tsx", ".ts", ".js", ".jsx"], // 自动解析确定的扩展
+    alias: {
+      src: resolve("src"),
+    },
   },
 };

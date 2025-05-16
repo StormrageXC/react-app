@@ -18,3 +18,7 @@ declare module '*.mp4' {
     const src: string
     export default src
 }
+declare module '*.css' {
+    const classes: CSSModuleClasses
+    export default classes
+}

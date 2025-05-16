@@ -1,7 +1,7 @@
 import React, { useActionState, useState } from "react";
 import type { FormProps } from "antd";
 import { Layout, Button, Checkbox, Form, Input, ConfigProvider } from "antd";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { useNavigate, redirect } from "react-router-dom";
 import { authState } from "../store/authSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -53,6 +53,7 @@ export default function Login() {
     >
       <Layout className="layout">
         <main>
+          <div className={styles.logo} />
           <header></header>
           <Form
             action={formAction}
