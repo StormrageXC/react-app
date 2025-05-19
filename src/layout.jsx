@@ -9,18 +9,18 @@ import {
 import { Button, Layout, Menu, theme, Input, Row, Col } from "antd";
 import { NavLink, Link, Routes, Route, Navigate } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
-import Login from "./login";
-import styles from "./layout.module.scss";
-import { light, dark } from "./theme";
-import image from "./assets/sunrise.jpeg";
-import video from "./assets/video.mp4";
-import txt from "./assets/a.txt";
+import style from "./layout.module.scss";
 const { Header, Sider, Content, Footer } = Layout;
 import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { themeContext } from "./context";
-
-const App = ({ onDispatch }) => {
+interface State {
+  onDispatch: Function;
+}
+interface Style {
+  logo: string;
+}
+const LayoutPage: React.FC<State> = ({ onDispatch }) => {
   const themeSatus = useContext(themeContext);
   const [collapsed, setCollapsed] = useState(!themeSatus);
   const {
@@ -36,7 +36,7 @@ const App = ({ onDispatch }) => {
       }}
     >
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-        <div className={styles.my_button} />
+        <div className={style.logo} />
         <Menu
           theme="light"
           mode="inline"
@@ -99,4 +99,4 @@ const App = ({ onDispatch }) => {
   );
 };
 
-export default App;
+export default LayoutPage;
