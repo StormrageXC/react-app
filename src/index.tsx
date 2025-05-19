@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import App from "./app";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { registerMicroApps, start } from "qiankun";
-import Login from "./login";
 import "@ant-design/v5-patch-for-react-19";
 const basename = "/";
 import store from "./store";

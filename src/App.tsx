@@ -3,7 +3,7 @@ import { ConfigProvider } from "antd";
 import { Routes, Route, Navigate, Await } from "react-router-dom";
 import Login from "./login";
 import LayoutPage from "./layout";
-// import "./app.scss";
+import "./app.scss";
 import { light, dark } from "./theme";
 import themeReducer from "./reducer";
 import { themeContext } from "./context";

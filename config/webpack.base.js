@@ -55,7 +55,10 @@ export default {
           {
             loader: "css-loader",
             options: {
-              modules: true, // 开启css module
+              modules: {
+                auto: true,
+              }, // 开启css module ,module 为true时会为所有文件类型开启css module， 其属性auto为true时会根据特定文件类型css module
+              importLoaders: 1, // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader
             },
           },
           "sass-loader",
