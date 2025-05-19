@@ -7,13 +7,14 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Input, Row, Col } from "antd";
-import { NavLink, Link, Routes, Route, Navigate } from "react-router-dom";
+import { NavLink, Link, Routes, Route, Outlet } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import style from "./layout.module.scss";
 const { Header, Sider, Content, Footer } = Layout;
 import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { themeContext } from "./context";
+import Identify from "./identify";
 interface State {
   onDispatch: Function;
 }
@@ -28,7 +29,6 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
     token,
   } = theme.useToken();
   const dispatch = useDispatch();
-  // const a = Object.keys(token).filter((key) => token[key] === "#e6f4ff");
   return (
     <Layout
       style={{
@@ -55,7 +55,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
             {
               key: "3",
               icon: <UploadOutlined />,
-              label: <Link to="/">default</Link>,
+              label: <Link to="/app/id">default</Link>,
             },
           ]}
         />
@@ -91,6 +91,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
             borderRadius: borderRadiusLG,
           }}
         >
+          <Outlet></Outlet>
           <div id="qiankun"></div>
         </Content>
         <Footer style={{ textAlign: "center" }}>App is building...</Footer>
