@@ -29,6 +29,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
     token,
   } = theme.useToken();
   const dispatch = useDispatch();
+  // const a = Object.keys(token).filter((key) => token[key] === "#e6f4ff");
   return (
     <Layout
       style={{

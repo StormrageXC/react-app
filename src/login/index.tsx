@@ -1,7 +1,7 @@
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useState, useEffect } from "react";
 import type { FormProps } from "antd";
 import { Layout, Button, Checkbox, Form, Input, ConfigProvider } from "antd";
-import "./test.scss";
+import style from "./index.module.scss";
 import { useNavigate, redirect } from "react-router-dom";
 import { authState } from "../store/authSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,10 @@ export default function Login() {
     username: "",
     password: "",
   });
-
+  useEffect(() => {
+    console.log(formData);
+    setFormData({ ...formData, username: "567" });
+  }, [formData.username, formData.password]);
   function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
     setFormData({ ...formData, username: e.target.value });
   }
@@ -51,7 +54,8 @@ export default function Login() {
         },
       }}
     >
-      <Layout className="layout">
+      <Layout className={style.layout}>
+        <p style={{ color: "white" }}> {formData.username}</p>
         <main>
           <header></header>
           <Form
@@ -72,7 +76,10 @@ export default function Login() {
                 { required: true, message: "Please input your username!" },
               ]}
             >
-              <Input />
+              <Input
+                value={formData.username}
+                defaultValue={formData.username}
+              />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -82,7 +89,7 @@ export default function Login() {
                 { required: true, message: "Please input your password!" },
               ]}
             >
-              <Input.Password />
+              <Input.Password visibilityToggle={false} />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -96,7 +103,7 @@ export default function Login() {
             <Form.Item
               label={null}
               wrapperCol={{ span: 24 }}
-              className="button-wrapper"
+              className={style["button-wrapper"]}
             >
               <Button type="primary" htmlType="submit">
                 Submit
