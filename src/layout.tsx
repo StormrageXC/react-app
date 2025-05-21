@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Input, Row, Col } from "antd";
-import { NavLink, Link, Routes, Route, Outlet } from "react-router-dom";
+import { Navigate, Link, useMatch, Route, Outlet } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import style from "./layout.module.scss";
 const { Header, Sider, Content, Footer } = Layout;
@@ -22,6 +22,7 @@ interface Style {
   logo: string;
 }
 const LayoutPage: React.FC<State> = ({ onDispatch }) => {
+  const match = useMatch("/app");
   const themeSatus = useContext(themeContext);
   const [collapsed, setCollapsed] = useState(!themeSatus);
   const {
@@ -56,7 +57,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
             {
               key: "3",
               icon: <UploadOutlined />,
-              label: <Link to="/app/id">default</Link>,
+              label: <Link to="/app/home">default</Link>,
             },
           ]}
         />
@@ -92,6 +93,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
             borderRadius: borderRadiusLG,
           }}
         >
+          {match && <Navigate to={`/app/home`} replace />}
           <Outlet></Outlet>
           <div id="qiankun"></div>
         </Content>

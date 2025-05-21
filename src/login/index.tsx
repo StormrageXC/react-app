@@ -10,36 +10,28 @@ function increment(previousState: Boolean, formData: any) {
   console.log(formData.entries().next());
   return previousState;
 }
+type FieldType = {
+  username?: string;
+  password?: string;
+  remember?: boolean;
+};
 export default function Login() {
-  const navigate = useNavigate();
-  const [state, formAction] = useActionState(increment, false);
-  const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
-  useEffect(() => {
-    console.log(formData);
-    setFormData({ ...formData, username: "567" });
-  }, [formData.username, formData.password]);
-  function handleUsername(e: React.ChangeEvent<HTMLInputElement>) {
-    setFormData({ ...formData, username: e.target.value });
-  }
-  type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-  };
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    dispatch(authState(), 1);
-    navigate("/app", { replace: true });
-  };
-
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
+  const navigate = useNavigate(),
+    init: FieldType = { remember: localStorage.getItem("remember") === "true" },
+    [state, formAction] = useActionState(increment, false),
+    dispatch = useDispatch(),
+    [form] = Form.useForm(),
+    onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+      values.remember
+        ? localStorage.setItem("remember", "true")
+        : localStorage.removeItem("remember");
+      dispatch(authState(), 1);
+      navigate("/app", { replace: true });
+    },
+    onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
+      console.log("Failed:", errorInfo);
+    },
+    onValuesChange = (changedValues: FieldType, allValues: FieldType) => {};
   return (
     <ConfigProvider
       theme={{
@@ -55,19 +47,19 @@ export default function Login() {
       }}
     >
       <Layout className={style.layout}>
-        <p style={{ color: "white" }}> {formData.username}</p>
         <main>
           <header></header>
           <Form
+            form={form}
             action={formAction}
             name="basic"
+            initialValues={init}
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 18 }}
             style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
+            onValuesChange={onValuesChange}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
-            autoComplete="off"
           >
             <Form.Item<FieldType>
               label="Username"
@@ -76,10 +68,7 @@ export default function Login() {
                 { required: true, message: "Please input your username!" },
               ]}
             >
-              <Input
-                value={formData.username}
-                defaultValue={formData.username}
-              />
+              <Input />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -89,7 +78,10 @@ export default function Login() {
                 { required: true, message: "Please input your password!" },
               ]}
             >
-              <Input.Password visibilityToggle={false} />
+              <Input.Password
+                autoComplete={init.remember ? "" : "new-password"}
+                visibilityToggle={false}
+              />
             </Form.Item>
 
             <Form.Item<FieldType>

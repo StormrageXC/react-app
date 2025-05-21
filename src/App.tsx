@@ -24,11 +24,11 @@ const App: React.FC = () => {
       }}
     >
       <themeContext.Provider value={theme}>
-        {!isAuth && <Navigate to={`/login`} replace />}
+        {!isAuth && <Navigate to={`/app/home`} replace />}
         <Routes>
-          <Route path="/" element={<Navigate to={`/login`} replace />} />
+          <Route path="/" element={<Navigate to={`/app/home`} replace />} />
           <Route path="/app/*" element={<LayoutPage onDispatch={dispatch} />}>
-            <Route path="id" element={<Identify />}></Route>
+            <Route path="home" element={<Identify />}></Route>
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
