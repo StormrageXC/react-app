@@ -170,4 +170,12 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLLinkElement/crossOrigin)
 
+## 17. BFC
+-  使用 display: flow-root 和浮动实现双列布局，因为正常文档流中建立的 BFC 不得与元素本身所在的块格式化上下文中的任何浮动的外边距重叠。
 
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_display/Block_formatting_context)
+
+## 18. 外边距折叠
+-  有设定浮动和绝对定位的元素不会发生外边距折叠
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing)
