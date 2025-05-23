@@ -1,9 +1,10 @@
 41;
 import * as echarts from "echarts";
 import React, { useEffect } from "react";
+import "./index.scss";
 export default function Identify() {
   useEffect(() => {
-    var myChart = echarts.init(document.getElementById("main"));
+    var myChart = echarts.init(document.getElementById("item2"));
     myChart.setOption({
       title: {
         text: "ECharts 入门示例",
@@ -22,5 +23,13 @@ export default function Identify() {
       ],
     });
   });
-  return <div id="main" style={{ width: "100%", height: "100%" }}></div>;
+  return (
+    <div id="grid">
+      <div id="item1"></div>
+      <div id="item2"></div>
+      <div id="item3"></div>
+      <div id="item1"></div>
+      <div id="item1"></div>
+    </div>
+  );
 }
