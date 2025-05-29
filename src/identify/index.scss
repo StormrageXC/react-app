@@ -1,0 +1,27 @@
+#grid {
+  height: 100%;
+  display: grid;
+  //   grid-auto-columns: 200px;
+  //   grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas:
+    "a b c"
+    "d b e";
+  grid-auto-rows: 50px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+  #radar {
+    grid-area: a;
+  }
+  #earth {
+    grid-area: b;
+  }
+  #item3 {
+    grid-area: c;
+  }
+  #item4 {
+    grid-area: d;
+  }
+  #item5 {
+    grid-area: e;
+  }
+}

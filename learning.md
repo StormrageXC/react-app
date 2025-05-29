@@ -179,3 +179,9 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 -  有设定浮动和绝对定位的元素不会发生外边距折叠
 
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_box_model/Mastering_margin_collapsing)
+
+
+## 19. display: grid
+-  有设定浮动和绝对定位的元素不会发生外边距折叠
+
+[MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid)

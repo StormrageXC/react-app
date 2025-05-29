@@ -32,7 +32,7 @@ export default {
         ],
       },
       {
-        test: /\.txt$/i,
+        test: /\.(txt|hdr)$/i,
         type: "asset/source",
       },
       {
