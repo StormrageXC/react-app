@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useState, useReducer, useContext, ChangeEvent } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -14,6 +14,7 @@ const { Header, Sider, Content, Footer } = Layout;
 import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { themeContext } from "./context";
+import { useImmer, useImmerReducer } from "use-immer";
 import Identify from "./identify";
 interface State {
   onDispatch: Function;
@@ -21,16 +22,60 @@ interface State {
 interface Style {
   logo: string;
 }
+interface Item {
+  key: String;
+  icon: object;
+  label: object;
+}
 const LayoutPage: React.FC<State> = ({ onDispatch }) => {
   const match = useMatch("/app");
   const themeSatus = useContext(themeContext);
-  const [collapsed, setCollapsed] = useState(!themeSatus);
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
     token,
   } = theme.useToken();
+  const [person, updatePerson] = useImmer({
+    name: "Niki de Saint Phalle",
+    artwork: {
+      title: "Blue Nana",
+      city: "Hamburg",
+      image: "https://i.imgur.com/Sd1AgUOm.jpg",
+    },
+  });
+  function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
+    updatePerson((draft) => {
+      draft.name = e.target.value;
+    });
+  }
   const dispatch = useDispatch();
   // const a = Object.keys(token).filter((key) => token[key] === "#e6f4ff");
+  const [items, updateItems] = useImmer<any>([
+    {
+      key: "1",
+      icon: <UserOutlined />,
+      label: <Link to="/app">app</Link>,
+    },
+    {
+      key: "2",
+      icon: <VideoCameraOutlined />,
+      label: <Link to="/login">login</Link>,
+    },
+    {
+      key: "3",
+      icon: <UploadOutlined />,
+      label: <Link to="/app/home">default</Link>,
+    },
+  ]);
+  function handleAdd() {
+    updateItems((draft: Array<Item>) => {
+      draft.push({
+        key: "4",
+        icon: <UploadOutlined />,
+        label: <Link to="/app/home">default</Link>,
+      });
+    });
+  }
   return (
     <Layout
       style={{
@@ -43,23 +88,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
           theme="light"
           mode="inline"
           defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: <Link to="/app">app</Link>,
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: <Link to="/login">login</Link>,
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: <Link to="/app/home">default</Link>,
-            },
-          ]}
+          items={items}
         />
       </Sider>
       <Layout style={{ overflow: "auto", maxHeight: "100vh" }}>
@@ -71,7 +100,6 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={() => {
                   setCollapsed(!collapsed);
-                  dispatch(changeTheme());
                 }}
                 style={{
                   fontSize: "16px",
@@ -81,8 +109,12 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
               />
             </Col>
             <Col span={2}>
-              <Input prefix={<SearchOutlined />}></Input>
+              <Input
+                prefix={<SearchOutlined />}
+                onChange={handleNameChange}
+              ></Input>
             </Col>
+            <Col span={2}>{person.name}</Col>
           </Row>
         </Header>
         <Content
@@ -95,6 +127,7 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
         >
           {match && <Navigate to={`/app/home`} replace />}
           <Outlet></Outlet>
+          <button onClick={handleAdd}>add menu</button>
           <div id="qiankun"></div>
         </Content>
         <Footer style={{ textAlign: "center" }}>App is building...</Footer>

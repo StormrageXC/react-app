@@ -21,10 +21,13 @@ export default function Login() {
     [state, formAction] = useActionState(increment, false),
     dispatch = useDispatch(),
     [form] = Form.useForm(),
-    onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
       values.remember
         ? localStorage.setItem("remember", "true")
         : localStorage.removeItem("remember");
+      await new Promise((resolve) => {
+        setTimeout(resolve, 3000);
+      });
       dispatch(authState(), 1);
       navigate("/app", { replace: true });
     },
@@ -48,7 +51,9 @@ export default function Login() {
     >
       <Layout className={style.layout}>
         <main>
-          <header></header>
+          <header>
+            <div></div>
+          </header>
           <Form
             form={form}
             action={formAction}

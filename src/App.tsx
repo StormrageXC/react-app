@@ -14,8 +14,8 @@ interface State {
 }
 const App: React.FC = () => {
   const theme = useSelector((state: any) => state.theme.value);
-  const [state, dispatch] = useReducer(themeReducer, { theme: true });
   const isAuth = useSelector((state: any) => state.auth.value);
+  const [state, dispatch] = useReducer(themeReducer, { theme: true });
 
   return (
     <ConfigProvider

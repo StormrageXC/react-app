@@ -3,7 +3,7 @@ import * as echarts from "echarts";
 import { useState } from "react";
 import "echarts-gl";
 import React, { useEffect } from "react";
-import image from "../assets/earth.jpg";
+import image from "../assets/elden-ring.jpeg";
 import environment from "../assets/starfield.jpg";
 import texture from "../assets/bg.hdr";
 import "./index.scss";
@@ -12,7 +12,7 @@ function initEarth(chartDom: HTMLElement) {
     globe: {
       baseTexture: image, // 地球纹理
       heightTexture: image, // 地球高度纹理
-      displacementScale: 0.5, // 地球表面的偏移,
+      // displacementScale: 0.5, // 地球表面的偏移,
       // 着色效果
       // 'color' 只显示颜色，不受光照等其它因素的影响。
       // 'lambert' 通过经典的 lambert 着色表现光照带来的明暗。
