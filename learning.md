@@ -185,3 +185,5 @@ BigInt 和 Number 不是严格相等的，但是宽松相等的。两者也可�
 -  有设定浮动和绝对定位的元素不会发生外边距折叠
 
 [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/grid)
+
+## 20. 在 React 中，渲染应该是纯粹的计算 JSX，不应该包含任何像修改 DOM 这样的副作用 ；React 总是在执行下一轮渲染的 Effect 之前清理上一轮渲染的 Effect

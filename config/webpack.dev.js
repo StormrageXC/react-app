@@ -23,7 +23,7 @@ export default merge(base, {
         arguments: ["--incognito", "--new-window"], // 打开无痕模式
       },
     },
-    port: 8081,
+    port: 80,
     proxy: [
       {
         context: ["/NiceFish-React"],

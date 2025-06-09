@@ -62,7 +62,7 @@ function initRadar(chartDom: HTMLElement) {
     ],
   });
 }
-export default function Identify() {
+export default function Home() {
   const [list, setList] = useState<Array<Object>>([
     { val: 1 },
     { val: 2 },

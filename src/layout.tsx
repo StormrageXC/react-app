@@ -15,7 +15,6 @@ import { changeTheme } from "./store/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { themeContext } from "./context";
 import { useImmer, useImmerReducer } from "use-immer";
-import Identify from "./identify";
 interface State {
   onDispatch: Function;
 }

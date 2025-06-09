@@ -8,7 +8,7 @@ import { light, dark } from "./theme";
 import themeReducer from "./reducer";
 import { themeContext } from "./context";
 import { useDispatch, useSelector } from "react-redux";
-import Identify from "./identify";
+import Home from "./home";
 interface State {
   onDispatch: Function;
 }
@@ -28,7 +28,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Navigate to={`/app/home`} replace />} />
           <Route path="/app/*" element={<LayoutPage onDispatch={dispatch} />}>
-            <Route path="home" element={<Identify />}></Route>
+            <Route path="home" element={<Home />}></Route>
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
