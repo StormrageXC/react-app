@@ -1,6 +1,6 @@
 41;
 import * as echarts from "echarts";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "echarts-gl";
 import React, { useEffect } from "react";
 import image from "../assets/elden-ring.jpeg";
@@ -68,14 +68,17 @@ export default function Home() {
     { val: 2 },
     { val: 3 },
   ]);
+  const a = useRef<Number>(1);
   const [num, setNum] = useState(0);
   useEffect(() => {
+    console.log("mount");
     initEarth(document.getElementById("earth")!);
     initRadar(document.getElementById("radar")!);
-  });
+  }, [a.current]);
   function add() {
     setNum((n) => n + 1);
     console.log(num);
+    a.current = 2;
   }
   return (
     <div id="grid">
@@ -83,7 +86,7 @@ export default function Home() {
       <div id="earth"></div>
       <div id="item3"></div>
       <div id="item4">
-        <div onClickCapture={add}>1</div>
+        <button onClickCapture={add}>{num}</button>
       </div>
       <div id="item5"></div>
     </div>
