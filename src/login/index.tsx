@@ -1,4 +1,11 @@
-import React, { useActionState, useState, useEffect } from "react";
+import React, {
+  useActionState,
+  useState,
+  useEffect,
+  Component,
+  createElement,
+} from "react";
+import { createRoot } from "react-dom/client";
 import type { FormProps } from "antd";
 import { Layout, Button, Checkbox, Form, Input, ConfigProvider } from "antd";
 import style from "./index.module.scss";
@@ -15,7 +22,45 @@ type FieldType = {
   password?: string;
   remember?: boolean;
 };
+// type Info = {
+//   id: String;
+//   user?: String;
+//   className?: String;
+// };
+// class Post extends Component<Info> {
+//   render(): React.ReactNode {
+//     console.log(this);
+//     return createElement(
+//       "div",
+//       {
+//         id: 1,
+//         className: "post",
+//         onClick: this.handleClick,
+//       },
+//       this.props.user
+//     );
+//   }
+//   constructor(props: Info) {
+//     super(props);
+//     this.handleClick = this.handleClick.bind(this);
+//     this.state = {
+//       id: 1,
+//     };
+//   }
+//   handleClick() {
+//     console.log("click", this);
+//   }
+// }
+// const MyPost = createElement(Post, {
+//   id: "231",
+//   user: "cbw",
+// });
+// const el = document.getElementById("test"),
+//   root = createRoot(el!);
+// root.render(MyPost);
+
 export default function Login() {
+  const [A, setA] = useState(1);
   const navigate = useNavigate(),
     init: FieldType = { remember: localStorage.getItem("remember") === "true" },
     [state, formAction] = useActionState(increment, false),
@@ -35,6 +80,13 @@ export default function Login() {
       console.log("Failed:", errorInfo);
     },
     onValuesChange = (changedValues: FieldType, allValues: FieldType) => {};
+  setA(2);
+  useEffect(() => {
+    console.log(A, "USEeffect");
+  });
+  setTimeout(() => {
+    console.log(A, "TIMEOUT");
+  });
   return (
     <ConfigProvider
       theme={{
