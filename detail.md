@@ -13,3 +13,5 @@
 ## 6. input自动填充系统主题背景色可用box-shadow去覆盖默认背景色, color-scheme: light dark;可进行主题的默认选择
 
 ## 7. autoComplete="new-password" 密码输入框自动填充屏蔽
+
+## 8. REACT18开始setState的行为整体变为异步
