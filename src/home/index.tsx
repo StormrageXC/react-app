@@ -27,7 +27,8 @@ function initEarth(chartDom: HTMLElement) {
   // });
   console.log(china);
   echarts.registerMap("china", china);
-  echarts.init(chartDom).setOption({
+  const mapChart = echarts.init(chartDom);
+  mapChart.setOption({
     geo: {
       regions: [
         {
@@ -59,6 +60,9 @@ function initEarth(chartDom: HTMLElement) {
         },
       },
     },
+  });
+  mapChart.on("click", function (params) {
+    console.log(params);
   });
 }
 function initRadar(chartDom: HTMLElement) {
