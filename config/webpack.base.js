@@ -1,4 +1,5 @@
 import { resolve } from "path";
+import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 export default {
   target: "web",
@@ -8,13 +9,16 @@ export default {
       base: { href: "/" },
       template: resolve("src/index.html"),
     }),
+    new webpack.DllReferencePlugin({
+      manifest: resolve("dist/vendor-manifest.json"),
+    }),
   ],
   output: {
     library: `react-app`,
     libraryTarget: "umd",
     chunkLoadingGlobal: `webpackJsonp_react-app`,
-    filename: "main.js",
-    path: resolve("dist"),
+    // filename: "main.js",
+    // path: resolve("dist"),
     assetModuleFilename: "images/[name][ext]", //自定义资源模块输出目录
   },
   module: {
