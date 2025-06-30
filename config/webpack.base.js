@@ -17,8 +17,8 @@ export default {
     library: `react-app`,
     libraryTarget: "umd",
     chunkLoadingGlobal: `webpackJsonp_react-app`,
-    // filename: "main.js",
-    // path: resolve("dist"),
+    filename: "main.js",
+    path: resolve("dist"),
     assetModuleFilename: "images/[name][ext]", //自定义资源模块输出目录
   },
   module: {

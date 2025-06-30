@@ -80,67 +80,62 @@ const LayoutPage: React.FC<State> = ({ onDispatch }) => {
     });
   }
   return (
-    <Self>
-      <div>123</div>
-      <Layout
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-          <div className={style.logo} />
-          <Menu
-            theme="light"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            items={items}
-          />
-        </Sider>
-        <Layout style={{ overflow: "auto", maxHeight: "100vh" }}>
-          <Header style={{ padding: 0, background: colorBgContainer }}>
-            <Row>
-              <Col span={1}>
-                <Button
-                  type="text"
-                  icon={
-                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                  }
-                  onClick={() => {
-                    setCollapsed(!collapsed);
-                  }}
-                  style={{
-                    fontSize: "16px",
-                    width: 64,
-                    height: 64,
-                  }}
-                />
-              </Col>
-              <Col span={2}>
-                <Input
-                  prefix={<SearchOutlined />}
-                  onChange={handleNameChange}
-                ></Input>
-              </Col>
-              <Col span={2}>{person.name}</Col>
-            </Row>
-          </Header>
-          <Content
-            style={{
-              margin: "24px 16px",
-              padding: 24,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            {match && <Navigate to={`/app/home`} replace />}
-            <Outlet></Outlet>
-            <button onClick={handleAdd}>add menu</button>
-            <div id="qiankun"></div>
-          </Content>
-          <Footer style={{ textAlign: "center" }}>App is building...</Footer>
-        </Layout>
+    <Layout
+      style={{
+        minHeight: "100vh",
+      }}
+    >
+      <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
+        <div className={style.logo} />
+        <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          items={items}
+        />
+      </Sider>
+      <Layout style={{ overflow: "auto", maxHeight: "100vh" }}>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Row>
+            <Col span={1}>
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => {
+                  setCollapsed(!collapsed);
+                }}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                }}
+              />
+            </Col>
+            <Col span={2}>
+              <Input
+                prefix={<SearchOutlined />}
+                onChange={handleNameChange}
+              ></Input>
+            </Col>
+            <Col span={2}>{person.name}</Col>
+          </Row>
+        </Header>
+        <Content
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+          {match && <Navigate to={`/app/home`} replace />}
+          <Outlet></Outlet>
+          <button onClick={handleAdd}>add menu</button>
+          <div id="qiankun"></div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>App is building...</Footer>
       </Layout>
-    </Self>
+    </Layout>
   );
 };
 

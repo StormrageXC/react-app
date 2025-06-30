@@ -3,7 +3,7 @@ const webpack = require("webpack");
 module.exports = {
   mode: "production",
   entry: {
-    vendor: ["react", "react-dom"], // 需要提前打包的库
+    vendor: ["react"], // 需要提前打包的库
   },
   output: {
     path: path.resolve(__dirname, "dist"),
