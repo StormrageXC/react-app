@@ -1,8 +1,6 @@
 #grid {
   height: 100%;
   display: grid;
-  //   grid-auto-columns: 200px;
-  //   grid-template-columns: 1fr 2fr 1fr;
   grid-template-areas:
     "a b c"
     "d b e";
