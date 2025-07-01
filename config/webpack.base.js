@@ -1,40 +1,79 @@
 import { resolve } from "path";
+import os from "os";
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import UglifyJsPlugin from "uglifyjs-webpack-plugin";
+import HappyPack from "happypack";
+import AddAssetHtmlPlugin from "add-asset-html-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+const happyThreadPool = HappyPack.ThreadPool({
+  size: os.cpus().length,
+});
+console.log(happyThreadPool);
 export default {
   target: "web",
   entry: resolve("src/index.tsx"),
   plugins: [
+    new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       base: { href: "/" },
       template: resolve("src/index.html"),
     }),
+
     new webpack.DllReferencePlugin({
       manifest: resolve("dist/vendor-manifest.json"),
     }),
+    // new AddAssetHtmlPlugin({
+    //   filepath: resolve("dist/vendor.dll.js"),
+    // }),
+    new HappyPack({
+      id: "happyBabel",
+      loaders: ["babel-loader"],
+    }),
   ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true, // 开启缓存
+        parallel: true, // 开启并行压缩
+        uglifyOptions: {
+          compress: {
+            drop_console: true, // 移除console
+            drop_debugger: true, // 移除debugger
+          },
+          output: {
+            comments: false,
+          },
+        },
+      }),
+    ],
+  },
   output: {
     library: `react-app`,
     libraryTarget: "umd",
     chunkLoadingGlobal: `webpackJsonp_react-app`,
-    // filename: "main.js",
-    // path: resolve("dist"),
+    filename: "main.js",
+    path: resolve("dist"),
     assetModuleFilename: "images/[name][ext]", //自定义资源模块输出目录
   },
   module: {
     rules: [
       {
-        test: /\.(tsx|ts|js|jsx)$/,
-        exclude: /(node_modules)/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: true,
-            },
-          },
-        ],
+        test: /\.tsx$/,
+        use: ["happypack/loader?id=happyBabel"],
       },
+      // {
+      //   test: /\.(tsx|ts|js|jsx)$/,
+      //   exclude: /(node_modules)/,
+      //   use: [
+      //     {
+      //       loader: "babel-loader",
+      //       options: {
+      //         cacheDirectory: true,
+      //       },
+      //     },
+      //   ],
+      // },
       {
         test: /\.(txt|hdr)$/i,
         type: "asset/source",

@@ -14,4 +14,8 @@
 
 ## 7. autoComplete="new-password" 密码输入框自动填充屏蔽
 
-## 8. REACT18开始setState的行为整体变为异步
+## 8.修改host需使用管理员省份打开记事本
+
+## 9. ‌digital envelope routines::unsupported错误通常由Node.js v17及以上版本中OpenSSL 3.0的严格算法限制引起，可通过设置环境变量NODE_OPTIONS=--openssl-legacy-provider或降级Node.js版本解决。
+
+## 10.使用happypack时注意loader的版本，官方提供了thread-loader做多线程处理
