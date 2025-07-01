@@ -18,6 +18,10 @@ import { useImmer, useImmerReducer } from "use-immer";
 interface State {
   onDispatch: Function;
 }
+interface Props {
+  onDispatch?: Function;
+  children: React.ReactNode;
+}
 interface Style {
   logo: string;
 }

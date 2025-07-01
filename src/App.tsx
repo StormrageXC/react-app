@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { ConfigProvider } from "antd";
 import { Routes, Route, Navigate, Await } from "react-router-dom";
 import Login from "./login";
@@ -12,56 +12,29 @@ import Home from "./home";
 interface State {
   onDispatch: Function;
 }
-class App extends React.Component {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      val: 0,
-    };
-  }
-  componentDidMount() {
-    this.setState({ val: this.state.val + 1 });
-    console.log(this.state.val);
-    // 第 1 次 log
-    this.setState({ val: this.state.val + 1 });
-    console.log(this.state.val);
-    // 第 2 次 log
-    setTimeout(() => {
-      this.setState({ val: this.state.val + 1 });
-      console.log(this.state.val);
-      // 第 3 次 log
-      this.setState({ val: this.state.val + 1 });
-      console.log(this.state.val);
-      // 第 4 次 log
-    }, 0);
-  }
-  handleClickWithPromise = () => {
-    setTimeout(() => {
-      this.setState({ ...this.state, a: "aa" });
-      console.log(this.state.a);
-    });
-    // Promise.resolve().then(() => {
-    //   this.setState({ ...this.state, a: "aaa" });
-    //   console.log(this.state.a);
-    // });
-  };
+const App: React.FC = () => {
+  const theme = useSelector((state: any) => state.theme.value);
+  const isAuth = useSelector((state: any) => state.auth.value);
+  const [state, dispatch] = useReducer(themeReducer, { theme: true });
 
-  handleClickWithoutPromise = () => {
-    this.setState({ ...this.state, a: "aa" });
-    this.setState({ ...this.state, b: "bb" });
-  };
-
-  render() {
-    console.log("render");
-    return (
-      <>
-        <button onClick={this.handleClickWithPromise}>
-          异步执行{this.state.a}
-        </button>
-        <button onClick={this.handleClickWithoutPromise}>同步执行</button>
-      </>
-    );
-  }
-}
+  return (
+    <ConfigProvider
+      theme={{
+        token: theme ? light : dark,
+      }}
+    >
+      <themeContext.Provider value={theme}>
+        {!isAuth && <Navigate to={`/app/home`} replace />}
+        <Routes>
+          <Route path="/" element={<Navigate to={`/app/home`} replace />} />
+          <Route path="/app/*" element={<LayoutPage onDispatch={dispatch} />}>
+            <Route path="home" element={<Home />}></Route>
+          </Route>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </themeContext.Provider>
+    </ConfigProvider>
+  );
+};
 
 export default App;
