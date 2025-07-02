@@ -13,8 +13,9 @@ console.log(happyThreadPool);
 export default {
   target: "web",
   entry: resolve("src/index.tsx"),
+  dependencies: ["../dist/vendor.dll.js"],
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       base: { href: "/" },
       template: resolve("src/index.html"),
@@ -23,9 +24,10 @@ export default {
     new webpack.DllReferencePlugin({
       manifest: resolve("dist/vendor-manifest.json"),
     }),
-    // new AddAssetHtmlPlugin({
-    //   filepath: resolve("dist/vendor.dll.js"),
-    // }),
+    new AddAssetHtmlPlugin({
+      filepath: resolve("dist/vendor.dll.js"),
+      publicPath: "/",
+    }),
     new HappyPack({
       id: "happyBabel",
       loaders: ["babel-loader"],
