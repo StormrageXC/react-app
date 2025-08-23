@@ -1,9 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
 module.exports = {
-  mode: "production",
+  mode: "development", // 生产模式和开发模式构建产物不同需要区分
   entry: {
-    vendor: ["react"], // 需要提前打包的库
+    vendor: ["react", "react-dom"], // 需要提前打包的库
   },
   output: {
     path: path.resolve(__dirname, "dist"),

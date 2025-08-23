@@ -12,6 +12,7 @@ const happyThreadPool = HappyPack.ThreadPool({
 export default {
   target: "web",
   entry: resolve("src/index.tsx"),
+  dependencies: ["../dist/vendor.dll.js"],
   plugins: [
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
