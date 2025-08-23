@@ -9,43 +9,44 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 const happyThreadPool = HappyPack.ThreadPool({
   size: os.cpus().length,
 });
-console.log(happyThreadPool);
 export default {
   target: "web",
   entry: resolve("src/index.tsx"),
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       base: { href: "/" },
       template: resolve("src/index.html"),
+      publicPath: "/",
     }),
 
-    new webpack.DllReferencePlugin({
-      manifest: resolve("dist/vendor-manifest.json"),
-    }),
+    // new webpack.DllReferencePlugin({
+    //   manifest: resolve("dist/vendor-manifest.json"),
+    // }),
     // new AddAssetHtmlPlugin({
     //   filepath: resolve("dist/vendor.dll.js"),
+    //   publicPath: "/",
     // }),
-    new HappyPack({
-      id: "happyBabel",
-      loaders: ["babel-loader"],
-    }),
+    // new HappyPack({
+    //   id: "happyBabel",
+    //   loaders: ["babel-loader"],
+    // }),
   ],
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true, // 开启缓存
-        parallel: true, // 开启并行压缩
-        uglifyOptions: {
-          compress: {
-            drop_console: true, // 移除console
-            drop_debugger: true, // 移除debugger
-          },
-          output: {
-            comments: false,
-          },
-        },
-      }),
+      // new UglifyJsPlugin({
+      //   cache: true, // 开启缓存
+      //   parallel: true, // 开启并行压缩
+      //   uglifyOptions: {
+      //     compress: {
+      //       drop_console: true, // 移除console
+      //       drop_debugger: true, // 移除debugger
+      //     },
+      //     output: {
+      //       comments: false,
+      //     },
+      //   },
+      // }),
     ],
   },
   output: {
@@ -58,22 +59,23 @@ export default {
   },
   module: {
     rules: [
-      {
-        test: /\.tsx$/,
-        use: ["happypack/loader?id=happyBabel"],
-      },
       // {
       //   test: /\.(tsx|ts|js|jsx)$/,
-      //   exclude: /(node_modules)/,
-      //   use: [
-      //     {
-      //       loader: "babel-loader",
-      //       options: {
-      //         cacheDirectory: true,
-      //       },
-      //     },
-      //   ],
+      //   use: ["happypack/loader?id=happyBabel"],
       // },
+      {
+        test: /\.(tsx|ts|js|jsx)$/,
+        exclude: /(node_modules)/,
+        use: [
+          "thread-loader",
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
+      },
       {
         test: /\.(txt|hdr)$/i,
         type: "asset/source",
@@ -94,7 +96,9 @@ export default {
       {
         test: /\.scss|css$/,
         use: [
+          // "thread-loader",
           "style-loader",
+          "thread-loader",
           {
             loader: "css-loader",
             options: {

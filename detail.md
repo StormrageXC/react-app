@@ -18,4 +18,6 @@
 
 ## 9. ‌digital envelope routines::unsupported错误通常由Node.js v17及以上版本中OpenSSL 3.0的严格算法限制引起，可通过设置环境变量NODE_OPTIONS=--openssl-legacy-provider或降级Node.js版本解决。
 
-## 10.使用happypack时注意loader的版本，官方提供了thread-loader做多线程处理
+## 10.使用happypack时注意loader的版本，官方提供了thread-loader做多线程处理.多线程打包要考虑线程池的开销要根据实际项目的大小来确定
+
+## 11. iframe的sandbox属性控制应用于嵌入在 <iframe> 中的内容的限制。该属性的值可以为空以应用所有限制，也可以为空格分隔的标记以解除特定的限制
