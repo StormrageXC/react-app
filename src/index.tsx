@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import test from "./test";
 import App from "./app";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { registerMicroApps, start } from "qiankun";

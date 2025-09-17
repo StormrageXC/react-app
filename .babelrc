@@ -4,7 +4,9 @@
     [
       "@babel/preset-react",
       {
-        "runtime": "automatic" // 当设置为 automatic 时，将自动导入（import）JSX 转换而来的函数。当设置为 classic 时，不会自动导入（import）任何东西
+        // 当设置为 automatic 时，将自动导入（import）JSX 转换而来的函数。当设置为 classic 时，不会自动导入（import）任何东西,
+        // 开启后，babel 会自动引入 React 相关的代码，如 React.createElement 等
+        "runtime": "automatic" 
       }
     ],
     "@babel/preset-typescript"

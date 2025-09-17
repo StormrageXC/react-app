@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useState, useReducer, useContext, useEffect } from "react";
 import { ConfigProvider } from "antd";
 import { Routes, Route, Navigate, Await } from "react-router-dom";
 import Login from "./login";
@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const theme = useSelector((state: any) => state.theme.value);
   const isAuth = useSelector((state: any) => state.auth.value);
   const [state, dispatch] = useReducer(themeReducer, { theme: true });
-
+  useEffect(() => {}, [theme]);
   return (
     <ConfigProvider
       theme={{

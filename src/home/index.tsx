@@ -8,6 +8,9 @@ import environment from "../assets/starfield.jpg";
 import texture from "../assets/bg.hdr";
 import china from "./china.json";
 import "./index.scss";
+import "./other.css";
+import Comp from "./comp";
+
 function initEarth(chartDom: HTMLElement) {
   // echarts.init(chartDom).setOption({
   //   globe: {
@@ -102,6 +105,15 @@ function initRadar(chartDom: HTMLElement) {
     ],
   });
 }
+class MyComponent extends React.Component {
+  handleClick = (event) => {
+    alert("按钮被点击了！");
+    console.log("事件对象:", this);
+  };
+  render() {
+    return <button onClick={this.handleClick}>点击我</button>;
+  }
+}
 export default function Home() {
   const [list, setList] = useState<Array<Object>>([
     { val: 1 },
@@ -121,7 +133,9 @@ export default function Home() {
     a.current = 2;
   }
   return (
-    <div id="grid">
+    <div id="grid" className="a">
+      123
+      <MyComponent />
       <div id="radar"></div>
       <div id="earth"></div>
       <div id="item3"></div>

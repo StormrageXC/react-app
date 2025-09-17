@@ -2,7 +2,6 @@
 //   base = require("./webpack.base.js");
 import { merge } from "webpack-merge";
 import base from "./webpack.base.js";
-console.log();
 export default merge(base, {
   mode: "development",
   devtool: "source-map",

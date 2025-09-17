@@ -12,7 +12,7 @@ const happyThreadPool = HappyPack.ThreadPool({
 export default {
   target: "web",
   entry: resolve("src/index.tsx"),
-  dependencies: ["../dist/vendor.dll.js"],
+  // dependencies: ["../dist/vendor.dll.js"],
   plugins: [
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
@@ -34,6 +34,16 @@ export default {
     // }),
   ],
   optimization: {
+    // moduleIds: "deterministic", // 模块id deterministic 确定的
+    // splitChunks: {
+    //   cacheGroups: {
+    //     commons: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: "vendor",
+    //       chunks: "all",
+    //     },
+    //   },
+    // },
     minimizer: [
       // new UglifyJsPlugin({
       //   cache: true, // 开启缓存
@@ -51,10 +61,11 @@ export default {
     ],
   },
   output: {
+    // clean: true,
     library: `react-app`,
     libraryTarget: "umd",
     chunkLoadingGlobal: `webpackJsonp_react-app`,
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     path: resolve("dist"),
     assetModuleFilename: "images/[name][ext]", //自定义资源模块输出目录
   },
